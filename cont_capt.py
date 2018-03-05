@@ -38,8 +38,9 @@ def run():
     print "Opened window"
     cv2.namedWindow("Image", cv2.WND_PROP_FULLSCREEN)
     cv2.setWindowProperty("Image", cv2.WND_PROP_FULLSCREEN, 1)
-    for img in stream:
+    for frame in stream:
         # print("c")
+        img = frame.array
         new_img = np.copy(img)
         raw_capture.truncate(0)
 
@@ -49,7 +50,7 @@ def run():
 
         for filename in os.listdir("classifiers"):
 	    logos = cascades[filename].detectMultiScale(gray,
-						scaleFactor=1.1,
+						scaleFactor=5,
 						minNeighbors=3,
 						minSize=(100, 100)
 	    )
